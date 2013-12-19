@@ -16,7 +16,7 @@ module Servicenow
       include Servicenow::Operations
       self.wsdl = "https://%s:%s@%s.%s/%s.do?WSDL" % [user,password,instance,domain,table]
       client :wsdl => self.wsdl,
-             :log => true,
+             :log => false,
              :log_level => :debug,
              :ssl_verify_mode => :none
       global :basic_auth, user,  password
