@@ -16,7 +16,12 @@ module Servicenow
       include Servicenow::Operations
       domain = opts[:domain] || "service-now.com"
       log = opts[:log] || false
-      self.wsdl = "https://%s:%s@%s.%s/%s.do?WSDL" % [user,password,instance,domain,table]
+      display_value = opts[:display_value] || false
+      if display_value
+        self.wsdl = "https://%s:%s@%s.%s/%s.do?displayvalue=%s&WSDL" % [user,password,instance,domain,table,display_value]
+      else
+        self.wsdl = "https://%s:%s@%s.%s/%s.do?WSDL" % [user,password,instance,domain,table]
+      end
       client :wsdl => self.wsdl,
              :log => log ? true : false,
              :log_level => log || :fatal,
