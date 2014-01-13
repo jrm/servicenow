@@ -23,6 +23,16 @@ module Servicenow
           end
         end
       end
+      
+      def aggregate(query)
+        if result = super(:message => query)
+          if result.body[:aggregate_response] && result.body[:aggregate_response][:aggregate_result]
+            result.body[:aggregate_response][:aggregate_result]
+          else
+            nil
+          end
+        end
+      end
     
       def count_records(query)
         if result = get_keys(:message => query)
