@@ -5,6 +5,7 @@ require "servicenow/record"
 require "servicenow/incident"
 require "servicenow/problem"
 require "servicenow/change_request"
+require "servicenow/cmdb_ci_appl"
 
 require 'savon'
 require 'ostruct'
