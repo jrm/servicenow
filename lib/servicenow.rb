@@ -6,6 +6,7 @@ require "servicenow/incident"
 require "servicenow/problem"
 require "servicenow/change_request"
 require "servicenow/cmdb_ci_appl"
+require "servicenow/sys_audit"
 
 require 'savon'
 require 'ostruct'
