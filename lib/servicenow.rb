@@ -8,6 +8,8 @@ require "servicenow/change_request"
 require "servicenow/cmdb_ci_appl"
 require "servicenow/sys_audit"
 require "servicenow/task"
+require "servicenow/task_sla"
+require "servicenow/incident_sla"
 
 require 'savon'
 require 'ostruct'
