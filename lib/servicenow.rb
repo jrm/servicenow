@@ -7,9 +7,11 @@ require "servicenow/problem"
 require "servicenow/change_request"
 require "servicenow/cmdb_ci_appl"
 require "servicenow/sys_audit"
-require "servicenow/task"
+require "servicenow/service_catalog_task"
 require "servicenow/task_sla"
 require "servicenow/incident_sla"
+require "servicenow/service_catalog_task_sla"
+
 
 require 'savon'
 require 'ostruct'
