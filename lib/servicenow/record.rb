@@ -26,7 +26,7 @@ module Servicenow
              :log => log ? true : false,
              :log_level => log || :fatal,
              :ssl_verify_mode => :none,
-             :ssl_version => :SSLv3
+             :ssl_version => :TLSv1
       global :basic_auth, user,  password
       operations :get, :get_records, :get_keys, :insert, :update, :aggregate
       self.soap_setup = true
