@@ -14,6 +14,7 @@ module Servicenow
     def self.setup_soap(user,password,instance, opts = {})
       extend Savon::Model
       include Servicenow::Operations
+      HTTPI.adapter = :curb
       domain = opts[:domain] || "service-now.com"
       log = opts[:log] || false
       display_value = opts[:display_value] || false
