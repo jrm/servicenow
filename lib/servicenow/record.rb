@@ -4,11 +4,17 @@ module Servicenow
   class Record < OpenStruct
     
     class << self
-       attr_accessor :soap_setup
-       attr_accessor :instance
-       attr_accessor :domain
-       attr_accessor :table
-       attr_accessor :wsdl
+      attr_accessor :soap_setup
+      attr_accessor :instance
+      attr_accessor :domain
+      attr_accessor :table
+      attr_accessor :wsdl
+      def cookies
+        Servicenow.cookies
+      end
+      def store_cookies(response)
+        Servicenow.cookies = response.http.cookies if response.http.cookies.any?
+      end
     end
     
     def self.setup_soap(user,password,instance, opts = {})
@@ -28,8 +34,8 @@ module Servicenow
              :log_level => log || :fatal,
              :ssl_verify_mode => :none,
              :ssl_version => :TLSv1
-      global :basic_auth, user,  password
       operations :get, :get_records, :get_keys, :insert, :update, :aggregate
+      global :basic_auth, user,  password
       self.soap_setup = true
     end
 

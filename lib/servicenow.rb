@@ -23,6 +23,10 @@ require 'ostruct'
 module Servicenow
   # Your code goes here...
   
+  class << self
+    attr_accessor :cookies
+  end
+  
   TICKETSTATES = {
     :new => 1,
     :assigned => 8,

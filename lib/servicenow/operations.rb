@@ -7,15 +7,16 @@ module Servicenow
     end
     
     module ClassMethods
-  
+      
       def get(sys_id)
-        if result = super(:message => {"sys_id" => sys_id})
+        if result = super(:message => {"sys_id" => sys_id}, :cookies => cookies)
           new(result.body[:get_response])
         end
       end
 
       def get_records(query)
-        if result = super(:message => query)
+        if result = super(:message => query, :cookies => cookies)
+          store_cookies(result)
           if result.body[:get_records_response] && records = result.body[:get_records_response][:get_records_result]
             [records].flatten.collect {|r| new(r) }
           else
@@ -25,7 +26,8 @@ module Servicenow
       end
       
       def aggregate(query)
-        if result = super(:message => query)
+        if result = super(:message => query, :cookies => cookies)
+          store_cookies(result)
           if result.body[:aggregate_response] && result.body[:aggregate_response][:aggregate_result]
             result.body[:aggregate_response][:aggregate_result]
           else
@@ -35,7 +37,8 @@ module Servicenow
       end
     
       def count_records(query)
-        if result = get_keys(:message => query)
+        if result = get_keys(:message => query, :cookies => cookies)
+          store_cookies(result)
           if result.body[:get_keys_response] && result.body[:get_keys_response][:count]
             result.body[:get_keys_response][:count].to_i
           else
@@ -52,13 +55,15 @@ module Servicenow
 
       def insert(record)
         record.merge!("u_ticket_type" => "Incident")
-        if result = super(:message => record)
+        if result = super(:message => record, :cookies => cookies)
+          store_cookies(result)
           get(result.body[:insert_response][:sys_id])
         end
       end
 
       def update(sys_id,record)
-        if result = super(:message => record.merge({"sys_id" => sys_id}))
+        if result = super(:message => record.merge({"sys_id" => sys_id}), :cookies => cookies)
+          store_cookies(result)
           get(result.body[:update_response][:sys_id])
         end
       end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-TEST_RECORD_NUMBER  = "INC1085988"
+TEST_RECORD_NUMBER  = "INC1809694"
 
 class Array; def sum; inject(0) {|acc,i| acc += i}; end; def mean; sum.to_f / size; end; end
 
@@ -11,11 +11,13 @@ describe Servicenow::Incident do
     #@test_record = Servicenow::Incident.get_record(:number => TEST_RECORD_NUMBER)
   end
   
-  describe ".get_record" do
-    it "returns a record" do
-      record = Servicenow::Incident.get_record(:number => TEST_RECORD_NUMBER)
-      #puts record.inspect
-      expect(record).to be_an_instance_of(Servicenow::Incident)
+  describe ".count_records" do
+    it "returns a record count" do
+      10.times do |i|
+        puts "Req: #{i}"
+        record = Servicenow::Incident.count_records(:number => "INC1537186")
+        expect(record).to equal(1)
+      end
     end
   end
     
@@ -62,8 +64,8 @@ describe Servicenow::Incident do
   
   #describe ".insert" do
   #  it "creates an Incident" do
-  #    record = Servicenow::Incident.insert({"description" => "#{@random_string}"})
-  #    record.description.to_s.should eq @random_string
+  #    record = Servicenow::Incident.insert({"description" => "Test: #{@random_string}"})
+  #    record.description.to_s.should eq "Test: #{@random_string}"
   #  end    
   #end
   
