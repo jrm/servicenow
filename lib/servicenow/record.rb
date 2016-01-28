@@ -29,7 +29,7 @@ module Servicenow
       else
         self.wsdl = "https://%s:%s@%s.%s/%s.do?WSDL" % [user,password,instance,domain,table]
       end
-      client :wsdl => self.wsdl,
+      client :wsdl => opts[:wsdl] || self.wsdl,
              :log => log ? true : false,
              :log_level => log || :fatal,
              :ssl_verify_mode => :none,
